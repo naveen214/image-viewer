@@ -251,11 +251,20 @@ class Profile extends Component {
       });
     }
   };
+  
+  logout = () => {
+    sessionStorage.clear();
+    this.props.history.replace('/');
+  };
 
   render() {
     const { classes } = this.props;
     return (
       <div>
+        <Header
+          screen={"Profile"}
+          userProfileUrl={this.state.profile_picture}
+          handleLogout={this.logout} />
         <Container fixed>
           <Grid container spacing={3} justify="center" alignItems="center">
             <Grid item>

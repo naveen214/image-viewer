@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Login from "./login/Login";
 import Profile from "./profile/Profile";
+import Home from "./home/Home";
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 class Controller extends Component {
@@ -8,7 +10,7 @@ class Controller extends Component {
     super(props);
     this.baseUrl = "https://api.instagram.com/v1/";
     this.state = {
-      loggedIn: sessionStorage.getItem("access-token") == null ? false : true
+      loggedIn: sessionStorage.getItem("access-token") === null ? false : true
     };
   }
 
@@ -21,10 +23,10 @@ class Controller extends Component {
               exact
               path="/home"
               render={props =>
-                !this.state.loggedIn ? (
+                sessionStorage.getItem("access-token") === null ? (
                   <Login {...props} baseUrl={this.baseUrl} />
                 ) : (
-                  <div>home page</div>
+                  <Home/>
                 )
               }
             />
@@ -32,7 +34,7 @@ class Controller extends Component {
               exact
               path="/profile"
               render={props =>
-                !this.state.loggedIn ? (
+                sessionStorage.getItem("access-token") === null ? (
                   <Login {...props} baseUrl={this.baseUrl} />
                 ) : (
                   <Profile />
@@ -43,10 +45,10 @@ class Controller extends Component {
               exact
               path="/"
               render={props =>
-                !this.state.loggedIn ? (
+                sessionStorage.getItem("access-token") === null ? (
                   <Login {...props} baseUrl={this.baseUrl} />
                 ) : (
-                  <div>home page</div>
+                  <Home/>
                 )
               }
             />
